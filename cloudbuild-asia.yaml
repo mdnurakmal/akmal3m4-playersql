@@ -1,0 +1,15 @@
+steps:
+  - id: "Build web frontend image"
+    name: "gcr.io/cloud-builders/docker"
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      docker build . -t ${_MULTIREGION}-docker.pkg.dev/${PROJECT_ID}/dronegaga-artifact-registry/player-sql
+      docker push ${_MULTIREGION}-docker.pkg.dev/${PROJECT_ID}/dronegaga-artifact-registry/player-sql
+
+substitutions:
+    _MULTIREGION: asia # default value
+
+options:
+  logging: CLOUD_LOGGING_ONLY

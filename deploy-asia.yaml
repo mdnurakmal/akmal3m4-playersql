@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: player-sql-deployment
+  namespace: player-sql
+  labels:
+    app: player-sql
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: player-sql
+  template:
+    metadata:
+      labels:
+        app: player-sql
+    spec:
+      containers:
+      - name: sql
+        image: asia-docker.pkg.dev/group4-3m4/dronegaga-artifact-registry/player-sql@sha256:DIGEST
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /?id=akmal3m4@gmail.com
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          failureThreshold: 2
